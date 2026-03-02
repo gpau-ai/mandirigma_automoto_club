@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Developers</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal-box {
+    background: var(--card-bg);
+    border: 1px solid rgba(193,18,31,0.35);
+    border-radius: 10px;
+    padding: 30px 25px 24px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 25px rgba(193,18,31,0.15);
+    position: relative;
+    animation: popIn 0.2s ease;
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+
+  .modal-box .close-btn {
+    position: absolute;
+    top: 10px; right: 14px;
+    font-size: 18px;
+    cursor: pointer;
+    color: rgba(255,255,255,0.4);
+    border: none;
+    background: none;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .modal-box .close-btn:hover { color: var(--red); }
+
+  .modal-box .fb-icon {
+    width: 50px;
+    margin-bottom: 14px;
+  }
+
+  .modal-box h3 {
+    margin: 0 0 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .modal-box p {
+    margin: 0 0 18px;
+    font-size: 0.78rem;
+    color: var(--red);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .modal-box .fb-link {
+    display: inline-block;
+    background: var(--red);
+    color: #fff;
+    text-decoration: none;
+    padding: 9px 22px;
+    border-radius: 4px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(193,18,31,0.35);
+  }
+
+  .modal-box .fb-link:hover {
+    background: #e3151f;
+    box-shadow: 0 6px 20px rgba(193,18,31,0.55);
+  }
+
+  .card h3.clickable-name {
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .card h3.clickable-name:hover {
+    color: var(--red);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="whatwedo.html">What We Do</a>
+  <a href="activities.html">Activities</a>
+  <a href="members.html">Members</a>
+  <a href="news.html">News</a>
+  <a href="contact.html">Contact</a>
+  <a href="developers.html">Developers</a>
+</nav>
+
+<div class="section">
+  <h2>Website Developers</h2>
+  <p class="contact-subtitle">The minds that built this experience</p>
+
+  <div class="cards">
+
+    <div class="card member-card">
+      <div class="member-img-wrap">
+        <img src="pics/pau.jpg" alt="Gian Paulo">
+      </div>
+      <h3 class="clickable-name" onclick="openModal('Gian Paulo D. Amacio', 'Programmer 1', 'https://www.facebook.com/gian.paulo.965')">Gian Paulo D. Amacio</h3>
+      <p>Programmer 1</p>
+      <span class="card-tag">Lead Developer</span>
+    </div>
+
+    <div class="card member-card">
+      <div class="member-img-wrap">
+        <img src="pics/nero.jpg" alt="Nero">
+      </div>
+      <h3 class="clickable-name" onclick="openModal('Nero M. Sol', 'Programmer 2', 'https://www.facebook.com/neromsol')">Nero M. Sol</h3>
+      <p>Programmer 2</p>
+      <span class="card-tag">Developer</span>
+    </div>
+
+    <div class="card member-card">
+      <div class="member-img-wrap">
+        <img src="pics/toms.jpg" alt="Astherton">
+      </div>
+      <h3 class="clickable-name" onclick="openModal('Astherton B. Keh', 'Programmer 3', 'https://www.facebook.com/astherton.keh.2024')">Astherton B. Keh</h3>
+      <p>Programmer 3</p>
+      <span class="card-tag">Developer</span>
+    </div>
+
+    <div class="card member-card">
+      <div class="member-img-wrap">
+        <img src="pics/lei.jpg" alt="Leinard">
+      </div>
+      <h3 class="clickable-name" onclick="openModal('Leinard Paul H. Zapanta', 'Programmer 4', 'https://www.facebook.com/zapanta.leinard')">Leinard Paul H. Zapanta</h3>
+      <p>Programmer 4</p>
+      <span class="card-tag">Developer</span>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal" onclick="closeOnOverlay(event)">
+  <div class="modal-box">
+    <button class="close-btn" onclick="closeModal()">✕</button>
+    <img class="fb-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+    <h3 id="modal-name"></h3>
+    <p id="modal-role"></p>
+    <a class="fb-link" id="modal-link" href="#" target="_blank">Visit Facebook Profile</a>
+  </div>
+</div>
+
+<footer>© 2026 Mandirigma Automoto Club</footer>
+
+<script>
+  function openModal(name, role, url) {
+    document.getElementById('modal-name').textContent = name;
+    document.getElementById('modal-role').textContent = role;
+    document.getElementById('modal-link').href = url;
+    document.getElementById('modal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+  }
+
+  function closeOnOverlay(e) {
+    if (e.target.id === 'modal') closeModal();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>
